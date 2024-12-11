@@ -1,4 +1,3 @@
-// ContactList.js
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { EditContactModal } from "./EditContactModal";
@@ -17,30 +16,34 @@ export const ContactList = () => {
             method: "GET",
             headers: { "Content-Type": "application/json" },
         })
-            .then(response => response.ok ? response.json() : fetch("https://playground.4geeks.com/contact/agendas/JohnSalas", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ name: "JohnSalas" }),
-            }).then(res => res.json()))
-            .then(data => setAgenda(data));
+            .then((response) => response.ok ? response.json() : 
+                fetch("https://playground.4geeks.com/contact/agendas/JohnSalas", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ name: "JohnSalas" }),
+                }).then((response) => response.json())
+            )
+            .then((agendaData) => setAgenda(agendaData));
     }, []);
 
     useEffect(() => {
         if (agenda?.slug) {
-            fetch(`https://playground.4geeks.com/contact/agendas/${agenda.slug}/contacts`)
-                .then(response => response.json())
-                .then(data => setContacts(data.contacts || []));
+            fetch(`https://playground.4geeks.com/contact/agendas/${agenda.slug}/contacts`, {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },
+            })
+            .then((response) => response.json())
+            .then((data) => setContacts(data.contacts || []));
         }
     }, [agenda]);
-    
-    console.log("Agenda:", agenda);
-    
-    const handleDelete = (id) => {
-        fetch(`https://playground.4geeks.com/contact/agendas/JohnSalas/contacts/${id}`, { method: "DELETE" })
-            .then(() => {
-                setContacts(contacts.filter(contact => contact.id !== id));
-                setShowDeleteModal(false);
-            });
+
+    const handleDelete = (contactId) => {
+        fetch(`https://playground.4geeks.com/contact/agendas/JohnSalas/contacts/${contactId}`, {
+            method: "DELETE",
+        }).then(() => {
+            setContacts(contacts.filter((contact) => contact.id !== contactId));
+            setShowDeleteModal(false);
+        });
     };
 
     const handleUpdate = (e) => {
@@ -51,11 +54,20 @@ export const ContactList = () => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(updatedContact),
         })
-        .then(response => response.json())
-        .then(data => {
-            setContacts(contacts.map(contact => contact.id === data.id ? data : contact));
+        .then((response) => response.json())
+        .then((updatedData) => {
+            setContacts((prevContacts) =>
+                prevContacts.map((contact) =>
+                    contact.id === updatedData.id ? updatedData : contact
+                )
+            );
             setShowModal(false);
         });
+    };
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setEditContact((prev) => ({ ...prev, [name]: value }));
     };
 
     const handleEdit = (contact) => {
@@ -68,12 +80,16 @@ export const ContactList = () => {
         setShowDeleteModal(true);
     };
 
+    const handleDeleteModalClose = () => {
+        setShowDeleteModal(false);
+    };
+
     return (
         <div className="container">
             <h1>Lista de Contactos</h1>
             <Link to="/addContact">+ Nuevo contacto</Link>
             <ul>
-                {contacts.map(contact => (
+                {contacts.map((contact) => (
                     <li key={contact.id} className="card m-4 p-5">
                         <p><strong>Name:</strong> {contact.name}</p>
                         <p><strong>Phone:</strong> {contact.phone}</p>
@@ -85,18 +101,21 @@ export const ContactList = () => {
                     </li>
                 ))}
             </ul>
+
             {showModal && (
                 <EditContactModal
                     showModal={showModal}
                     handleClose={() => setShowModal(false)}
                     handleUpdate={handleUpdate}
                     editContact={editContact}
+                    handleChange={handleChange}
                 />
             )}
+
             {showDeleteModal && (
                 <DeleteContactModal
                     showModal={showDeleteModal}
-                    handleClose={() => setShowDeleteModal(false)}
+                    handleClose={handleDeleteModalClose}
                     handleDelete={handleDelete}
                     contactId={contactToDelete?.id}
                 />
