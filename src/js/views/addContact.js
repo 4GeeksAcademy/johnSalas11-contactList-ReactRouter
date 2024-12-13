@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import "../../styles/addContactStyles.css";
 
 export const AddContact = ({ addContactToList }) => {
   const [name, setName] = useState("");

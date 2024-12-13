@@ -1,0 +1,95 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    width: 80%;
+    margin: 20px auto;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    text-align: center;
+    color: #333;
+  }
+  
+  a {
+    display: inline-block;
+    margin-bottom: 20px;
+    text-decoration: none;
+    color: #007bff;
+    font-size: 16px;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .card {
+    background-color: #fafafa;
+    border: 1px solid #e2e2e2;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card p {
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .card button {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    margin-right: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .card Link:hover {
+    background-color: #0056b3;
+  }
+  
+  .card .btn-danger {
+    background-color: #dc3545;
+  }
+  
+  .card .btn-danger:hover {
+    background-color: #c82333;
+  }
+  
+  .modal-backdrop {
+    background: rgba(0, 0, 0, 0.5);
+  }
+  
+  .modal-dialog {
+    max-width: 500px;
+  }
+  
+  .modal-content {
+    border-radius: 8px;
+    background: white;
+  }
+  
+  .modal-header {
+    background-color: #f8f9fa;
+  }
+  
+  .modal-footer button {
+    border-radius: 5px;
+  }
+  

@@ -1,5 +1,7 @@
 // DeleteContactModal.js
 import React from "react";
+import "../../styles/deleteContactStyles.css";
+
 
 export const DeleteContactModal = ({ showModal, handleClose, handleDelete, contactId }) => {
   return (
@@ -8,9 +10,6 @@ export const DeleteContactModal = ({ showModal, handleClose, handleDelete, conta
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title">Confirmar Eliminación</h5>
-            <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={handleClose}>
-              <span aria-hidden="true">&times;</span>
-            </button>
           </div>
           <div className="modal-body">
             <p>¿Estás seguro de que deseas eliminar este contacto?</p>

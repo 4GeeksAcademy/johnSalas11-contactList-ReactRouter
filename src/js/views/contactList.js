@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import "../../styles/contactListStyles.css";
 import { EditContactModal } from "./EditContactModal";
 import { DeleteContactModal } from "./DeleteContactModal";
 
@@ -16,7 +17,7 @@ export const ContactList = () => {
             method: "GET",
             headers: { "Content-Type": "application/json" },
         })
-            .then((response) => response.ok ? response.json() : 
+            .then((response) => response.ok ? response.json() :
                 fetch("https://playground.4geeks.com/contact/agendas/JohnSalas", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -32,8 +33,8 @@ export const ContactList = () => {
                 method: "GET",
                 headers: { "Content-Type": "application/json" },
             })
-            .then((response) => response.json())
-            .then((data) => setContacts(data.contacts || []));
+                .then((response) => response.json())
+                .then((data) => setContacts(data.contacts || []));
         }
     }, [agenda]);
 
@@ -54,15 +55,15 @@ export const ContactList = () => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(updatedContact),
         })
-        .then((response) => response.json())
-        .then((updatedData) => {
-            setContacts((prevContacts) =>
-                prevContacts.map((contact) =>
-                    contact.id === updatedData.id ? updatedData : contact
-                )
-            );
-            setShowModal(false);
-        });
+            .then((response) => response.json())
+            .then((updatedData) => {
+                setContacts((prevContacts) =>
+                    prevContacts.map((contact) =>
+                        contact.id === updatedData.id ? updatedData : contact
+                    )
+                );
+                setShowModal(false);
+            });
     };
 
     const handleChange = (e) => {
@@ -96,8 +97,8 @@ export const ContactList = () => {
                         <p><strong>Email:</strong> {contact.email}</p>
                         <p><strong>Address:</strong> {contact.address}</p>
                         <p><strong>ID:</strong> {contact.id}</p>
-                        <button onClick={() => handleEdit(contact)}>Editar</button>
-                        <button onClick={() => handleDeleteModalOpen(contact)}>Eliminar</button>
+                        <Link className="btn btn-primary" onClick={() => handleEdit(contact)}>Editar</Link>
+                        <Link className="btn btn-primary" onClick={() => handleDeleteModalOpen(contact)}>Eliminar</Link>
                     </li>
                 ))}
             </ul>

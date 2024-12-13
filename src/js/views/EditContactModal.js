@@ -1,4 +1,5 @@
 import React from "react";
+import "../../styles/editContactStyles.css";
 
 export const EditContactModal = ({ showModal, handleClose, handleUpdate, editContact, handleChange }) => {
     return (
@@ -7,7 +8,6 @@ export const EditContactModal = ({ showModal, handleClose, handleUpdate, editCon
                 <div className="modal-content">
                     <div className="modal-header">
                         <h5 className="modal-title" id="editContactModalLabel">Editar Contacto</h5>
-                        <button type="button" className="btn-close" onClick={handleClose} aria-label="Close"></button>
                     </div>
                     <form onSubmit={handleUpdate}>
                         <div className="modal-body">
